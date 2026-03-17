@@ -1,4 +1,5 @@
 import { fetchCategoryBooks, fetchDetailsBook } from "./api.js"
+import { viewBookList } from "./ui.js";
 
 const searchBtn=document.getElementById("searchBtn")
 const categoryInput=document.getElementById("categoryInput")
@@ -8,6 +9,7 @@ searchBtn.addEventListener("click", async ()=>{
     if(!category)
         return alert("Inserisci una CATEGORIA!");
     const books= await fetchCategoryBooks(category);
+    viewBookList(books,clickedBook)
 })
 
 async function clickedBook(key){
