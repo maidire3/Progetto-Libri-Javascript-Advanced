@@ -1,5 +1,7 @@
 import { fetchCategoryBooks, fetchDetailsBook } from "./api.js"
 import { viewBookList, viewBookDetails } from "./ui.js";
+import { createModal } from "./utils.js";
+
 
 const searchBtn=document.getElementById("searchBtn")
 const categoryInput=document.getElementById("categoryInput")
@@ -7,14 +9,21 @@ const categoryInput=document.getElementById("categoryInput")
 //Fetcha i libri e mostra i risultati
 async function searchBooks() {
     const category = categoryInput.value.trim();
-    if (!category) return alert("Inserisci una CATEGORIA!");
+    if (!category) {
+        document.body.appendChild(
+        createModal("error","Errore", "Inserisci una categoria!")
+    );
+    return;
+    }
 
     searchBtn.disabled = true;
     searchBtn.textContent = "Caricamento...";
     
     const books = await fetchCategoryBooks(category);
     if (!books || books.length === 0) {
-        alert("Nessun libro trovato per questa categoria!");
+        document.body.appendChild(
+        createModal("error","Errore", "Nessun libro trovato per questa categoria")
+    );
         searchBtn.disabled = false;
         searchBtn.textContent = "Cerca";
         return;
