@@ -1,3 +1,4 @@
+//Mostra i risultati dei LIBRI ottenuti
 export function viewBookList(books, clickOnBook){
     const booksList=document.getElementById("booksList");
     booksList.innerHTML="";
@@ -15,19 +16,23 @@ export function viewBookList(books, clickOnBook){
     });
 }
 
+//Mostra i DETTAGLI dei libri
 export function viewBookDetails(book){
     const bookDetails=document.getElementById("bookDetails");
-    
+   
     const description = typeof book.description === "string" 
         ? book.description 
         : book.description?.value || "Nessuna descrizione disponibile";
 
     bookDetails.innerHTML = `
         <h2>${book.title}</h2>
-        <p><strong>Author:</strong> ${book.authors?.map(a => a.name).join(", ") || "Autore sconosciuto"}</p>
-        <p><strong>Description:</strong></p>
+        <p><strong>Autore:</strong> ${book.authors?.map(a => a.name).join(", ") || "Autore sconosciuto"}</p>
+        <p><strong>Descrizione:</strong></p>
         <p>${description}</p>
     `;
     
     bookDetails.classList.add("active");
+
+    //scroll automatico
+    bookDetails.scrollIntoView({ behavior: "smooth" });
 }

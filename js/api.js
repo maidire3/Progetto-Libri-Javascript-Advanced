@@ -7,10 +7,10 @@ export async function fetchCategoryBooks(category){
         if(!response.ok)
             throw new Error("Errore durante il caricamento dei libri!")
         const data=await response.json();
-        /* console.log(data.works); */
         return data.works || [];
     }catch(error){
         console.error(error)
+        return [];
     }
 }
 
@@ -21,13 +21,9 @@ export async function fetchDetailsBook(key){
         if(!response.ok)
             throw new Error("Errore durante il caricamento dei dettagli!");
         const data= await response.json();
-        /* console.log(data.description); */
         return data;
     }catch(error){
         console.error(error)
+        return null;
     }
 }
-
-//Esempi di Test
-/* fetchCategoryBooks("Adventure")
-fetchDetailsBook("/works/OL45089W") */
