@@ -1,29 +1,23 @@
-export const BaseUrl="https://openlibrary.org"
+import axios from "axios";
 
-// Filtra i libri per la categoria
-export async function fetchCategoryBooks(category){
-    try{
-        const response= await fetch(`${BaseUrl}/subjects/${category}.json`)
-        if(!response.ok)
-            throw new Error("Errore durante il caricamento dei libri!")
-        const data=await response.json();
+export const BaseUrl = "https://openlibrary.org";
+
+export async function fetchCategoryBooks(category) {
+    try {
+        const { data } = await axios.get(`${BaseUrl}/subjects/${category}.json`);
         return data.works || [];
-    }catch(error){
-        console.error(error)
+    } catch (error) {
+        console.error("Errore caricamento libri:", error.message);
         return [];
     }
 }
 
-//Cerca la descrizione dalla key ricevuta
-export async function fetchDetailsBook(key){
-    try{
-        const response= await fetch(`${BaseUrl}${key}.json`)
-        if(!response.ok)
-            throw new Error("Errore durante il caricamento dei dettagli!");
-        const data= await response.json();
+export async function fetchDetailsBook(key) {
+    try {
+        const { data } = await axios.get(`${BaseUrl}${key}.json`);
         return data;
-    }catch(error){
-        console.error(error)
+    } catch (error) {
+        console.error("Errore caricamento dettagli:", error.message);
         return null;
     }
 }
