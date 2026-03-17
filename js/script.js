@@ -8,7 +8,7 @@ const categoryInput=document.getElementById("categoryInput")
 
 //Fetcha i libri e mostra i risultati
 async function searchBooks() {
-    const category = categoryInput.value.trim();
+    const category = categoryInput.value.trim().toLowerCase();
     if (!category) {
         document.body.appendChild(
         createModal("error","Errore", "Inserisci una categoria!")
