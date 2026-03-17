@@ -22,8 +22,10 @@ async function searchBooks() {
     searchBtn.textContent = "Cerca";
 }
 
-async function clickedBook(key){
-    const bookDetails= await fetchDetailsBook(key);
+async function clickedBook(book){
+    const bookDetails= await fetchDetailsBook(book.key);
+    bookDetails.authors = book.authors;
+
     if(bookDetails)
         viewBookDetails(bookDetails)
 }

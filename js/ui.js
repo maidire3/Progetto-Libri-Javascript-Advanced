@@ -2,20 +2,32 @@ export function viewBookList(books, clickOnBook){
     const booksList=document.getElementById("booksList");
     booksList.innerHTML="";
 
+    if (books.length === 0) {
+        booksList.innerHTML = "<li>Nessun libro trovato</li>";
+        return;
+    }
+
     books.forEach(book => {
         const li=document.createElement("li");
         li.textContent=`${book.title} - ${book.authors?.map(a => a.name).join(", ") || "Autore sconosciuto"}`;
-        li.addEventListener("click", ()=> clickOnBook(book.key))
+        li.addEventListener("click", ()=> clickOnBook(book))
         booksList.appendChild(li);
     });
 }
 
 export function viewBookDetails(book){
     const bookDetails=document.getElementById("bookDetails");
-    bookDetails.innerHTML="";
+    
+    const description = typeof book.description === "string" 
+        ? book.description 
+        : book.description?.value || "Nessuna descrizione disponibile";
 
     bookDetails.innerHTML = `
         <h2>${book.title}</h2>
-        <p>${typeof book.description === "string" ? book.description : book.description?.value || "Nessuna descrizione disponibile"}</p>
+        <p><strong>Author:</strong> ${book.authors?.map(a => a.name).join(", ") || "Autore sconosciuto"}</p>
+        <p><strong>Description:</strong></p>
+        <p>${description}</p>
     `;
+    
+    bookDetails.classList.add("active");
 }

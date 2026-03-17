@@ -1,49 +1,98 @@
 body {
-  font-family: Arial, sans-serif;
-  max-width: 800px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 900px;
   margin: 0 auto;
   padding: 20px;
+  background-color: #f5f5f5;
 }
 
 header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #8b4513;
+  padding-bottom: 15px;
+}
+
+header h1 {
+  color: #8b4513;
+  font-size: 2.5em;
+  margin: 0;
 }
 
 .search-container {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 input[type="text"] {
   flex: 1;
-  padding: 10px;
+  padding: 12px;
   font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #8b4513;
 }
 
 button {
-  padding: 10px 15px;
+  padding: 12px 20px;
   font-size: 16px;
   cursor: pointer;
+  background-color: #8b4513;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+button:hover:not(:disabled) {
+  background-color: #a0522d;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 ul {
   list-style-type: none;
   padding: 0;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 li {
-  margin-bottom: 10px;
+  padding: 15px;
+  margin: 0;
+  border-bottom: 1px solid #eee;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+li:last-child {
+  border-bottom: none;
 }
 
 li:hover {
-  text-decoration: underline;
+  background-color: #f9f3ee;
+  text-decoration: none;
 }
 
 #bookDetails {
-  margin-top: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
+  margin-top: 30px;
+  padding: 20px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: none;
+}
+
+#bookDetails.active {
+  display: block;
 }
