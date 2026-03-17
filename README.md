@@ -2,7 +2,7 @@
 
 Un'applicazione web interattiva per cercare e scoprire libri per categoria, powered by Open Library API.
 
-Visionabile su Netlify al link: [https://calm-puppy-f41e80.netlify.app/](https://calm-puppy-f41e80.netlify.app/)
+Visionabile su Netlify al link: [https://sunny-speculoos-e2b1b8.netlify.app/](https://sunny-speculoos-e2b1b8.netlify.app/)
 
 ## 📖 Descrizione
 
