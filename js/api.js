@@ -1,7 +1,7 @@
-const BaseUrl="https://openlibrary.org"
+export const BaseUrl="https://openlibrary.org"
 
 // Filtra i libri per la categoria
-async function fetchCategoryBooks(category){
+export async function fetchCategoryBooks(category){
     try{
         const response= await fetch(`${BaseUrl}/subjects/${category}.json`)
         if(!response.ok)
@@ -15,7 +15,7 @@ async function fetchCategoryBooks(category){
 }
 
 //Cerca la descrizione dalla key ricevuta
-async function fetchDetailsBook(key){
+export async function fetchDetailsBook(key){
     try{
         const response= await fetch(`${BaseUrl}${key}.json`)
         if(!response.ok)
