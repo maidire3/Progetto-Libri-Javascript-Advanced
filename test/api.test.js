@@ -1,102 +1,54 @@
-import { describe, it, expect, vi } from "vitest";
-import { fetchCategoryBooks, fetchDetailsBook  } from "../js/api.js";
+// test/api.test.js
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
+import { fetchCategoryBooks, fetchDetailsBook } from "../js/api.js";
 
-//TEST fetchCategoryBooks
-describe("fetchCategoryBooks", () => {
-  it("ritorna una lista di libri", async () => {
-    // Mock di fetch
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        ok: true,
-        json: () =>
-          Promise.resolve({
-            works: [{ title: "Libro test" }]
-          })
-      })
-    );
+// Crea un mock di Axios
+const mock = new MockAdapter(axios);
 
-    const books = await fetchCategoryBooks("fantasy");
+describe("API con Axios", () => {
 
-    expect(books).toBeDefined();
-    expect(books.length).toBeGreaterThan(0);
-    expect(books[0].title).toBe("Libro test");
+  // Reset del mock dopo ogni test
+  afterEach(() => {
+    mock.reset();
   });
 
-  //FALLIMENTO 
-  it("ritorna array vuoto se la risposta NON è ok", async () => {
+  it("fetchCategoryBooks ritorna lista di libri", async () => {
+    const fakeBooks = {
+      works: [
+        { title: "Libro 1", authors: [{ name: "Autore 1" }] },
+        { title: "Libro 2", authors: [{ name: "Autore 2" }] }
+      ]
+    };
 
-  global.fetch = vi.fn(() =>
-    Promise.resolve({
-      ok: false,
-      json: () => Promise.resolve({})
-    })
-  );
+    // Mock della richiesta GET
+    mock.onGet("https://openlibrary.org/subjects/Adventure.json").reply(200, fakeBooks);
 
-  const books = await fetchCategoryBooks("fantasy");
-
-  expect(books).toEqual([]);
-});
-
-//FALLIMENTO DI RETE
-it("ritorna array vuoto se fetch fallisce", async () => {
-
-  global.fetch = vi.fn(() =>
-    Promise.reject(new Error("Network error"))
-  );
-
-  const books = await fetchCategoryBooks("fantasy");
-
-  expect(books).toEqual([]);
-});
-});
-
-
-// TEST fetchDetailsBook
-describe("fetchDetailsBook", () => {
-
-    //SUCCESSO
-    it("ritorna i dettagli del libro", async () => {
-
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        ok: true,
-        json: () =>
-          Promise.resolve({
-            title: "Libro dettagli",
-            description: "Descrizione test"
-          })
-      })
-    );
-
-    const book = await fetchDetailsBook("/works/OL123W");
-
-    expect(book).toBeDefined();
-    expect(book.title).toBe("Libro dettagli");
+    const result = await fetchCategoryBooks("Adventure");
+    expect(result).toEqual(fakeBooks.works);
   });
-  
-  //FALLIMENTO
-  it("ritorna null se la risposta NON è ok", async () => {
 
-  global.fetch = vi.fn(() =>
-    Promise.resolve({
-      ok: false
-    })
-  );
+  it("fetchCategoryBooks gestisce errore e ritorna array vuoto", async () => {
+    mock.onGet("https://openlibrary.org/subjects/InvalidCategory.json").networkError();
 
-  const book = await fetchDetailsBook("/works/OL123W");
+    const result = await fetchCategoryBooks("InvalidCategory");
+    expect(result).toEqual([]);
+  });
 
-  expect(book).toBeNull();
-});
+  it("fetchDetailsBook ritorna dettagli libro", async () => {
+    const fakeDetails = { title: "Libro 1", description: "Descrizione del libro" };
 
-//Fallimento di rete
-it("ritorna null se fetch fallisce", async () => {
+    mock.onGet("https://openlibrary.org/works/OL12345W.json").reply(200, fakeDetails);
 
-  global.fetch = vi.fn(() =>
-    Promise.reject(new Error("Network error"))
-  );
+    const result = await fetchDetailsBook("/works/OL12345W");
+    expect(result).toEqual(fakeDetails);
+  });
 
-  const book = await fetchDetailsBook("/works/OL123W");
+  it("fetchDetailsBook gestisce errore e ritorna null", async () => {
+    mock.onGet("https://openlibrary.org/works/OL00000W.json").networkError();
 
-  expect(book).toBeNull();
-});
+    const result = await fetchDetailsBook("/works/OL00000W");
+    expect(result).toBeNull();
+  });
+
 });
