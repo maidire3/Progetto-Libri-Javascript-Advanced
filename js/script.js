@@ -1,5 +1,5 @@
 import { fetchCategoryBooks, fetchDetailsBook } from "./api.js"
-import { viewBookList } from "./ui.js";
+import { viewBookList, viewBookDetails } from "./ui.js";
 
 const searchBtn=document.getElementById("searchBtn")
 const categoryInput=document.getElementById("categoryInput")
@@ -14,4 +14,6 @@ searchBtn.addEventListener("click", async ()=>{
 
 async function clickedBook(key){
     const bookDetails= await fetchDetailsBook(key);
+    if(bookDetails)
+        viewBookDetails(bookDetails)
 }

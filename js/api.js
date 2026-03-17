@@ -22,7 +22,7 @@ export async function fetchDetailsBook(key){
             throw new Error("Errore durante il caricamento dei dettagli!");
         const data= await response.json();
         /* console.log(data.description); */
-        return data.description || [];
+        return data;
     }catch(error){
         console.error(error)
     }
