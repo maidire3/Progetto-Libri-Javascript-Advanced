@@ -1,6 +1,7 @@
 # 🦉 Owly Books 📚
 
 Un'applicazione web interattiva per cercare e scoprire libri per categoria, powered by Open Library API.
+
 Visionabile su Netlify al link: [https://calm-puppy-f41e80.netlify.app/](https://calm-puppy-f41e80.netlify.app/)
 
 ## 📖 Descrizione
