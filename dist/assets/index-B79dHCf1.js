@@ -22,6 +22,6 @@ var e=Object.defineProperty,t=(t,n)=>{let r={};for(var i in t)e(r,i,{get:t[i],en
         </div>
 
         <div class="modal__right">
-            <img src="img/gufo-removebg-preview.png" alt="Gufo" class="modal__icon">
+            <img src="/img/gufo-removebg-preview.png" alt="Gufo" class="modal__icon">
         </div>
     `,i.appendChild(a),i.querySelector(`.modal__button`).addEventListener(`click`,()=>{i.remove()});let o=e=>{e.key===`Escape`&&(i.remove(),document.removeEventListener(`keydown`,o))};return document.addEventListener(`keydown`,o),i}var $=document.getElementById(`searchBtn`),on=document.getElementById(`categoryInput`);async function sn(){let e=on.value.trim();if(!e){document.body.appendChild(an(`error`,`Errore`,`Inserisci una categoria!`));return}$.disabled=!0,$.textContent=`Caricamento...`;let t=await en(e);if(!t||t.length===0){document.body.appendChild(an(`error`,`Errore`,`Nessun libro trovato per questa categoria`)),$.disabled=!1,$.textContent=`Cerca`;return}nn(t,cn),$.disabled=!1,$.textContent=`Cerca`}async function cn(e){let t=document.getElementById(`bookDetails`);t.innerHTML=`<p>Caricamento...</p>`;let n=await tn(e.key);if(!n){t.innerHTML=`<p>Errore nel caricamento</p>`;return}n.authors=e.authors,rn(n)}$.addEventListener(`click`,sn),on.addEventListener(`keydown`,e=>{e.key===`Enter`&&sn()});

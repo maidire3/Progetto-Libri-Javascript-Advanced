@@ -23,7 +23,7 @@ export function createModal(type, title, message) {
         </div>
 
         <div class="modal__right">
-            <img src="img/gufo-removebg-preview.png" alt="Gufo" class="modal__icon">
+            <img src="/img/gufo-removebg-preview.png" alt="Gufo" class="modal__icon">
         </div>
     `;
 
